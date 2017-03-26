@@ -8,9 +8,12 @@ Abstract
    send list of measures to the server.
    This demo code uses Java 8, Eclipse, Maven, SQLite DB, Apache iBatis (SQL mapper framework now called MyBatis).
 
-   Notes:  1. For now, only parts of the code can run as this is only partial code example.
-           2. Later, Spring can be added (light application framework and inversion of control (IoC) container)      
-
+   Notes:
+   <br/>
+   1. For now, only parts of the code can run as this is only partial code example.
+   <br/>
+   2. Later, Spring can be added (light application framework and inversion of control (IoC) container)      
+   <br/>
 
 <br/>
 <br/>
