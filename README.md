@@ -1,4 +1,4 @@
-# javaDemoForAyyeka
+# Java Demo for Ayyeka by Eli Isaak
 
 Abstract
 
@@ -14,17 +14,21 @@ Abstract
 
 Suggested walkthrough for reviewing
 
-1. Watch the simple database diagram screenshot.
-      This schema only contains the tables and primary keys.
-      Later it can be updated indexes, relations, maybe triggers.      
+   1. View the simple database diagram screenshot.
+        For now, this schema only contains the tables and primary keys.
+        Later it can be updated with indexes, relations, maybe triggers, or even store-procedures.      
 
-2.                                         
+   2. View the Eclipse project screenshot.
+         You will see there:  
+             2 root packages: api and persistency.
+             Persistency package contains packages for DataAccessObjects (DAO) and DataTransferObjects (DTO)
+             according to DAO design pattern.
                                          
-3. Read the com.ayyeka.server.model.unitTests.MeasuresHandlerTest
+   3. Read the com.ayyeka.server.model.unitTests.MeasuresHandlerTest
       This test demonstrates how a Conroller (part of MVC) can add measures to persistency using
       the MeasureHandler interface and the MeasuresHandlerUsingIbatisImpl implementor class. 
  
-4. Open the project in Eclipse and read the code (compiles well).       
+   4. Open the project in Eclipse and read the code (compiles well).       
 
 
 
