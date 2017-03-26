@@ -16,7 +16,6 @@ Abstract
    <br/>
 
 <br/>
-<br/>
 
 Suggested walkthrough
 
