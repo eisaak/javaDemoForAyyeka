@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+<sqlMap namespace="aggregatedMeasures"> 
+
+	<typeAlias alias="AGGREGATED_MEASURES_DTO" type="com.ayyeka.server.model.dto.AggregatedMeasuresDto" />
+
+	<resultMap id="aggregatedMeasuresResultMap" class="AGGREGATED_MEASURES_DTO">
+		<result property="id" column="agg_id" />
+		<result property="deviceId" column="device_id" />
+  		<result property="typeId" column="agg_type_id" />
+  		<result property="time" column="agg_time" />
+  		<result property="countMeasures" column="count_measures" />
+  		<result property="average" column="average" />
+	</resultMap>
+
+	
+	<insert id="addAggregatedMeasures" parameterClass="AGGREGATED_MEASURES_DTO">
+		INSERT INTO raw_measures (agg_id, device_id, agg_type_id, agg_time, count_measures, average)
+		 VALUES(#id#, #deviceId#, #typeId#, #time#, #countMeasures#, #average#);
+	</insert>
+	
+	<select id="getAggregatedMeasuresById" parameterClass="java.lang.Integer" resultMap="aggregatedMeasuresResultMap">
+		  SELECT * FROM aggregated_measures WHERE agg_id = #value#
+	</select>
+	
+	<select id="getAggregatedMeasuresByInfo" parameterClass="AGGREGATED_MEASURES_DTO" resultMap="aggregatedMeasuresResultMap">
+		  SELECT * FROM aggregated_measures 
+		  WHERE device_id = #deviceId#  AND  
+		        agg_type_id = #aggregatedTypeId# AND
+		        agg_time BETWEEN #calculatedStartTime# AND #calculatedEndTime#
+	</select>
+	
+	<update id="updateAggregatedMeasures" parameterClass="AGGREGATED_MEASURES_DTO">
+		UPDATE raw_measures
+      	SET device_id = #deviceId#,
+      		agg_type_id = #aggregatedTypeId#,
+ 			agg_time = #time#,
+      		count_measure = #countMeasures#, 
+      		average = "#average#"
+      	WHERE agg_id = #id#
+	</update>
+		
+	
+</sqlMap>

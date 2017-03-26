@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd"> 
+<sqlMap namespace="rawMeasure"> 
+
+	<typeAlias alias="AGGREGATED_MEASURES_DTO" type="com.ayyeka.server.model.dto.RawMeasureDto" />
+
+	<resultMap id="rawMeasureResultMap" class="RAW_MEASURE_DTO">
+		<result property="id" column="measure_id" />
+  		<result property="time" column="measured_time" />
+  		<result property="value" column="measured_value" />
+  		<result property="deviceId" column="device_id" />
+	</resultMap>
+	
+	<select id="getRawMeasureById" parameterClass="java.lang.Integer" resultMap="rawMeasureResultMap">
+		  SELECT 
+			  	measure_id AS id,  
+			  	measured_time AS time,
+			  	measured_value AS value,
+			  	device_id AS deviceId
+		  FROM raw_measures WHERE measure_id = #value#
+	</select>
+	
+	<insert id="addRawMeasure" parameterClass="RAW_MEASURE_DTO">
+		INSERT INTO raw_measures (measure_id,measured_time,measured_value,device_id)
+		 VALUES(#id#,#time#,#value#,#deviceId#);
+	</insert>
+	
+	<update id="addRawMeasure" parameterClass="RAW_MEASURE_DTO">
+		
+		UPDATE raw_measures
+      		SET   count_measure = #count#, 
+      			  average = ""		 
+      	WHERE  id = #id#
+      
+		UPDATE SET raw_measures (measure_id,measured_time,count_measure, average,device_id)
+		 VALUES(#id#,#time#,#value#,#deviceId#);
+	</update>
+		
+	<delete id="deleteRawMeasureById" parameterClass="java.lang.Integer">
+		  DELETE FROM raw_measures WHERE measure_id = #value#
+	</delete>
+	
+</sqlMap>
