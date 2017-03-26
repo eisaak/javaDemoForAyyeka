@@ -6,7 +6,7 @@ Abstract
    stores and aggregates information arriving from smart sensors.
    Currently, these smart sensors measure temprature every 5 minutes and every hour they
    send list of measures to the server.
-   This demo code uses Java 8, Eclipse, Maven, SQLite DB, Apache iBatis (SQL mapper framework now called MyBatis).
+   This demo code uses Java 8, Eclipse, Maven, MySQL DB, Apache iBatis (SQL mapper framework now called MyBatis).
 
    Notes:
    <br/>
