@@ -12,7 +12,9 @@ Abstract
            2. Later, Spring can be added (light application framework and inversion of control (IoC) container)      
 
 
-Suggested walkthrough for reviewing
+
+
+Suggested walkthrough
 
    1. View the simple database diagram screenshot.
         For now, this schema only contains the tables and primary keys.
