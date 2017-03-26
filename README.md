@@ -24,10 +24,15 @@ Suggested walkthrough
         Later it can be updated with indexes, relations, maybe triggers, or even store-procedures.      
 
    2. View the Eclipse project screenshot.
+         
          You will see there:  
+             
              2 root packages: api and persistency.
+             
              Persistency package contains packages for DataAccessObjects (DAO) and DataTransferObjects (DTO)
              according to DAO design pattern.
+             
+             XML files which define queries for iBatis against MySQL (system deployer can easily change them). 
                                          
    3. Read the com.ayyeka.server.model.unitTests.MeasuresHandlerTest
       This test demonstrates how a Conroller (part of MVC) can add measures to persistency using
