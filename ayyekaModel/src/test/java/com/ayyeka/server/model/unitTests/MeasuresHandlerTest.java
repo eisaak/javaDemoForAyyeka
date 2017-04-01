@@ -39,7 +39,7 @@ public class MeasuresHandlerTest
     public void testAggregation() throws Exception
     {
     		//------------------------------------------------------------------------------
-    		//Initialize and inject dependencies (Late Spring can be used for doing this)
+    		//Initialize and inject dependencies (Later Spring can be used for doing this)
     		//------------------------------------------------------------------------------
     	
 			Reader reader = Resources.getResourceAsReader("sql-maps-config.xml");
