@@ -1,20 +1,24 @@
 package com.ayyeka.server.model.unitTests;
 
+import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.ayyeka.server.model.api.AggregationTypeEnum;
 import com.ayyeka.server.model.api.MeasuresHandler;
-import com.ayyeka.server.model.api.MeasuresHandlerUsingIbatisImpl;
+import com.ayyeka.server.model.api.MeasuresHandlerImpl;
 import com.ayyeka.server.model.api.dataObjects.AggregatedMeasures;
 import com.ayyeka.server.model.api.dataObjects.RawMeasure;
-import com.ayyeka.server.model.persistency.dataTransferObjects.RawMeasureDto;
+import com.ayyeka.server.model.persistency.dataAccessInterfaces.RawMeasureDao;
+import com.ayyeka.server.model.persistency.dataAccessObjectsUsingIbatis.RawMeasureDaoImpl;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Unit test
@@ -32,21 +36,30 @@ public class MeasuresHandlerTest
         super( testName );
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( MeasuresHandlerTest.class );
-    }
-
-
     public void testAggregation() throws Exception
     {
+    		//------------------------------------------------------------------------------
+    		//Initialize and inject dependencies (Late Spring can be used for doing this)
+    		//------------------------------------------------------------------------------
     	
-	    	//MeasuresHandler measuresHandler = new MeasuresHandlerMock();
-	        MeasuresHandler measuresHandler = new MeasuresHandlerUsingIbatisImpl();
-	
+			Reader reader = Resources.getResourceAsReader("sql-maps-config.xml");
+			SqlMapClient sqlmapClient = SqlMapClientBuilder.buildSqlMapClient (reader);
+			
+			//Dependency injection using CTOR because I don't want 
+			//the RawMeasureDao interface to contain the method setSqlMapClient()
+    		RawMeasureDao rawMeasureDao = new RawMeasureDaoImpl(sqlmapClient); 
+
+    		ExecutorService executorService = Executors.newFixedThreadPool(10);
+	        MeasuresHandler measuresHandler = new MeasuresHandlerImpl(executorService);
+	        measuresHandler.setRawMeasureDao(rawMeasureDao);   //dependency injection
+
+	        
+    		//------------------------------------------------------------------------------
+	        //Create input and request the model to save it into persistency
+    		//------------------------------------------------------------------------------
+	        
+	        //User only knows about RawMeasure POJO and knows nothing about 
+	        //  RawMeasureDto, iBatis, mySql 
 	        RawMeasure rawMeasure = null;
 	        
 	        List<RawMeasure> listOfMeasures = new ArrayList<>();
@@ -63,7 +76,14 @@ public class MeasuresHandlerTest
 	        rawMeasure.setMeasuredValue(23.2f);
 	        listOfMeasures.add(rawMeasure);
 	        
-	        measuresHandler.addMeasures(listOfMeasures);
+	        measuresHandler.saveMeasuresIntoPersistency(listOfMeasures);
+	        
+	        measuresHandler.aggregateMeasuresIntoPersistency(listOfMeasures);
+	        
+	        
+    		//------------------------------------------------------------------------------
+	        //Request for aggregated data
+    		//------------------------------------------------------------------------------	        
 	        
 	        AggregatedMeasures aggregatedMeasuresForThisMonth = 
 	        		measuresHandler.getAggregatedMeasures(5, new Date(), AggregationTypeEnum.MONTH);

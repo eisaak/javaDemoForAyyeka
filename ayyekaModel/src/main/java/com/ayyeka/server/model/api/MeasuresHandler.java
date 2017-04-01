@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ayyeka.server.model.api.dataObjects.AggregatedMeasures;
 import com.ayyeka.server.model.api.dataObjects.RawMeasure;
+import com.ayyeka.server.model.persistency.dataAccessInterfaces.RawMeasureDao;
 
 
 /**
@@ -14,10 +15,12 @@ import com.ayyeka.server.model.api.dataObjects.RawMeasure;
  */
 public interface MeasuresHandler {
 	
-	void addMeasures(List<RawMeasure> listOfMeasures);
+	public void setRawMeasureDao(RawMeasureDao rawMeasureDao);
 	
-	//int getDeviceId(....);
-	
-	AggregatedMeasures getAggregatedMeasures(int deviceId, Date time, AggregationTypeEnum aggType );
+	void saveMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception;
+
+	void aggregateMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception;
+		
+	AggregatedMeasures getAggregatedMeasures(int deviceId, Date time, AggregationTypeEnum aggType ) throws Exception;
 	
 }

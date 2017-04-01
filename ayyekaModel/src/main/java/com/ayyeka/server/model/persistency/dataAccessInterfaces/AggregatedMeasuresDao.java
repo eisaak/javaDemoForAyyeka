@@ -5,7 +5,11 @@ import com.ayyeka.server.model.persistency.dataTransferObjects.AggregatedMeasure
 
 public interface AggregatedMeasuresDao 
 {
-	void addAggregatedMeasures(AggregatedMeasuresDto aggregatedMeasuresDto) throws Exception;
+	public void startTransaction() throws Exception;
+	public void commitTransaction() throws Exception;
+	public void endTransaction() throws Exception;
+	
+	void saveAggregatedMeasures(AggregatedMeasuresDto aggregatedMeasuresDto) throws Exception;
 	
 	AggregatedMeasuresDto getAggregatedMeasuresById(Integer id) throws Exception;
 	

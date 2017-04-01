@@ -4,7 +4,7 @@ import com.ayyeka.server.model.persistency.dataTransferObjects.RawMeasureDto;
 
 public interface RawMeasureDao 
 {
-	void addRawMeasure(RawMeasureDto rawMeasureDto) throws Exception;
+	void saveRawMeasure(RawMeasureDto rawMeasureDto) throws Exception;
 	
 	RawMeasureDto getRawMeasureById(Integer id) throws Exception;
 	

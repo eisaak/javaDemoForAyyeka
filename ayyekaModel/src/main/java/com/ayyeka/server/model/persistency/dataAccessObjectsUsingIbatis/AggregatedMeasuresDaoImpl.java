@@ -9,14 +9,25 @@ public class AggregatedMeasuresDaoImpl implements AggregatedMeasuresDao
 
 	private SqlMapClient sqlmapClient = null;
 	
-	
+
 	public AggregatedMeasuresDaoImpl(SqlMapClient sqlmapClient) {
 		
 		this.sqlmapClient = sqlmapClient;
 	}
 	
+	public void startTransaction() throws Exception {
+		sqlmapClient.startTransaction();
+	}
 	
-	public void addAggregatedMeasures(AggregatedMeasuresDto aggregatedMeasuresDto)  throws Exception {
+	public void commitTransaction() throws Exception  {
+		sqlmapClient.commitTransaction();
+	}
+
+	public void endTransaction() throws Exception  {
+		sqlmapClient.endTransaction();
+	}
+
+	public void saveAggregatedMeasures(AggregatedMeasuresDto aggregatedMeasuresDto)  throws Exception {
 		
 		sqlmapClient.insert("aggregatedMeasures.addAggregatedMeasures", aggregatedMeasuresDto);
 	}
