@@ -1,5 +1,6 @@
 package com.ayyeka.server.model.api;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -40,27 +41,13 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 	//According to SRP (Single Responsibility Principle), this method won't aggregate the data too
 	@Override
 	public void saveMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception {
-
-		try {
-				
-			for (RawMeasure rawMeasure : listOfMeasures) {
-				
-				executorService.submit(   ()->saveSingleRawMeasure(rawMeasure)   );
-			}	
-			
+		
+		List<RawMeasureDto> listOfRawMeasureDTOs = new ArrayList<RawMeasureDto>();
+		for ( RawMeasure rawMeasure : listOfMeasures ) {
+			listOfRawMeasureDTOs.add(DataToDtoConverter.convertToDto(rawMeasure));
 		}
-		catch (Exception e) {
-			//Handle errors (e.g. write errors to log)
-			throw e;
-		}
-		finally {
-				try {
-					aggregatedMeasuredDao.endTransaction();
-				}
-				catch (Exception e) {
-					//Handle errors (e.g. write errors to log)
-				}
-		}
+	
+		rawMeasureDao.saveNewRawMeasuresAsBatch(listOfRawMeasureDTOs);
 	}
 
 	@Override
@@ -96,7 +83,7 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 
 			RawMeasureDto rawMeasureDto = DataToDtoConverter.convertToDto(rawMeasure);			
 			
-			rawMeasureDao.saveRawMeasure(rawMeasureDto);  //save a single raw measure to DB
+			rawMeasureDao.saveNewRawMeasure(rawMeasureDto);  //save a single raw measure to DB
 			
 		
 		}

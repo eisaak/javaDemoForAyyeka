@@ -17,6 +17,7 @@ public interface MeasuresHandler {
 	
 	public void setRawMeasureDao(RawMeasureDao rawMeasureDao);
 	
+	
 	void saveMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception;
 
 	void aggregateMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception;

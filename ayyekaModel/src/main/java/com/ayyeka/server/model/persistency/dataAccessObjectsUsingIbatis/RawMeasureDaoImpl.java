@@ -1,6 +1,7 @@
 package com.ayyeka.server.model.persistency.dataAccessObjectsUsingIbatis;
 
 import java.io.Reader;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,18 +34,33 @@ public class RawMeasureDaoImpl implements RawMeasureDao
 		this.sqlmapClient = sqlmapClient;
 	}
 	
-	
-	public void saveRawMeasure(RawMeasureDto rawMeasureDto) throws Exception {
+	@Override
+	public void saveNewRawMeasure(RawMeasureDto rawMeasureDto) throws Exception {
 		
 		sqlmapClient.insert("rawMeasure.addRawMeasure", rawMeasureDto);
 	}
 
+	@Override
+	public void saveNewRawMeasuresAsBatch(List<RawMeasureDto> listOfRawMeasureDTOs) throws Exception {
+
+		//sqlmapClient.startTransaction()
+			
+		sqlmapClient.startBatch();
+		
+		for (RawMeasureDto rawMeasureDto : listOfRawMeasureDTOs) {
+			sqlmapClient.insert("rawMeasure.addRawMeasure", rawMeasureDto);
+		}
+		
+		sqlmapClient.executeBatch();
+	}
 	
+	@Override
 	public RawMeasureDto getRawMeasureById(Integer id) throws Exception {
 		
 		return (RawMeasureDto)sqlmapClient.queryForObject("rawMeasure.getRawMeasureById", id);
 	}
 	
+	@Override
 	public RawMeasureDto getRawMeasureByInfo(RawMeasureDto rawMeasureDto) throws Exception {
 
 		return (RawMeasureDto)sqlmapClient.queryForObject("rawMeasure.getRawMeasureByInfo", rawMeasureDto);
@@ -54,6 +70,8 @@ public class RawMeasureDaoImpl implements RawMeasureDao
 		
 		sqlmapClient.delete("rawMeasure.deleteRawMeasureById", id);
 	}
+
+
 
 
 

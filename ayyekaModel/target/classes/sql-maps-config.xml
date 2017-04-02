@@ -15,7 +15,7 @@
         </dataSource>
       </transactionManager>
     
-    <sqlMap resource="user.xml"/>
     <sqlMap resource="queries-RawMeasures.xml"/>
+    <sqlMap resource="queries-AggregatedMeasures.xml"/>
 
 </sqlMapConfig>

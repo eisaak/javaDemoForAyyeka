@@ -25,17 +25,6 @@
 		 VALUES(#id#,#time#,#value#,#deviceId#);
 	</insert>
 	
-	<update id="addRawMeasure" parameterClass="RAW_MEASURE_DTO">
-		
-		UPDATE raw_measures
-      		SET   count_measure = #count#, 
-      			  average = ""		 
-      	WHERE  id = #id#
-      
-		UPDATE SET raw_measures (measure_id,measured_time,count_measure, average,device_id)
-		 VALUES(#id#,#time#,#value#,#deviceId#);
-	</update>
-		
 	<delete id="deleteRawMeasureById" parameterClass="java.lang.Integer">
 		  DELETE FROM raw_measures WHERE measure_id = #value#
 	</delete>
