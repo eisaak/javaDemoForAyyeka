@@ -14,13 +14,23 @@ CREATE TABLE IF NOT EXISTS aggregated_measures (
   agg_id INT(11) NOT NULL,
   device_id VARCHAR(45) NULL DEFAULT NULL,
   agg_type_id INT(11) NULL DEFAULT NULL,
-  agg_time DATE NULL DEFAULT NULL,
+  agg_year INT(4) NULL DEFAULT NULL,
+  agg_month INT(2) NULL DEFAULT NULL,
+  agg_day INT(2) NULL DEFAULT NULL,
   count_measures INT(11) NULL DEFAULT NULL,
   average FLOAT NULL DEFAULT NULL,
   PRIMARY KEY (agg_id));
 
+CREATE INDEX idx_agg_year
+ON aggregated_measures(agg_year);
 
+CREATE INDEX idx_agg_year
+ON aggregated_measures(agg_month);
 
+CREATE INDEX idx_agg_year
+ON aggregated_measures(agg_day);
+  
+  
   
 DROP TABLE IF EXISTS devices ;
 
