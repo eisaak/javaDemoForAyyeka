@@ -35,13 +35,13 @@ public class AggregatedMeasuresDaoImpl implements AggregatedMeasuresDao
 
 	public AggregatedMeasuresDto getAggregatedMeasuresById(Integer id)  throws Exception {
 
-		return (AggregatedMeasuresDto)sqlmapClient.queryForObject("aggregatedMeasures.getRawMeasureById", id);
+		return (AggregatedMeasuresDto)sqlmapClient.queryForObject("aggregatedMeasures.getAggregatedMeasuresById", id);
 	}
 
 
 	public AggregatedMeasuresDto getAggregatedMeasuresByInfo(AggregatedMeasuresDto aggregatedMeasuresDto) throws Exception {
 		
-		return (AggregatedMeasuresDto)sqlmapClient.queryForObject("aggregatedMeasures.getRawMeasureByInfo", aggregatedMeasuresDto);
+		return (AggregatedMeasuresDto)sqlmapClient.queryForObject("aggregatedMeasures.getAggregatedMeasuresByInfo", aggregatedMeasuresDto);
 	}
 
 	

@@ -18,7 +18,7 @@ import com.ayyeka.server.model.persistency.dataTransferObjects.RawMeasureDto;
 public class MeasuresHandlerImpl implements MeasuresHandler {
 	
 	
-	private ExecutorService executorService = null;  //Thread pool
+	//private ExecutorService executorService = null;  //Thread pool
 	private RawMeasureDao rawMeasureDao = null;  
 	private AggregatedMeasuresDao aggregatedMeasuredDao = null;
 
@@ -27,10 +27,10 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 	
 	
 	//Ctor
-	public MeasuresHandlerImpl(ExecutorService executorService) {
+	//public MeasuresHandlerImpl(ExecutorService executorService) {
 		
-		this.executorService = executorService;
-	}
+		//this.executorService = executorService;
+	//}
 	
 	public void setRawMeasureDao(RawMeasureDao rawMeasureDao) {
 		this.rawMeasureDao = rawMeasureDao;
@@ -52,26 +52,42 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 		rawMeasureDao.saveNewRawMeasuresAsBatch(listOfRawMeasureDTOs);
 	}
 
+
 	@Override
 	public void aggregateMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception {
 
 		//TBD: This method needs to be completed
 		
-		RawMeasure firstMeasure = listOfMeasures.get(0);
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(firstMeasure.getTime());
-		int aggYear = cal.get(Calendar.YEAR); 
-		int aggMonth = cal.get(Calendar.MONTH); 
-		int aggDayOfMonth = cal.get(Calendar.DAY_OF_MONTH); 
-		
-		AggregatedMeasuresDto aggregatedMeasuresDto = new AggregatedMeasuresDto();
-		aggregatedMeasuresDto.setAggregatedYear(aggYear);
-		aggregatedMeasuresDto.setAggregatedMonth(aggMonth);
-		aggregatedMeasuresDto.setAggregatedDayOfMonth(aggDayOfMonth);
-		aggregatedMeasuresDto.setAggregatedTypeId(1);
+
+		AggregatedMeasuresDto aggregatedMeasuresDto = 
+					getAggregatedMeasuresFromPersistency(listOfMeasures.get(0), AggregationTypeEnum.DAY_OF_MONTH);
+				
+		aggregatedMeasuresDto.setAggregatedTypeId(AggregationTypeEnum.DAY_OF_MONTH.id());
+		aggregatedMeasuresDto.setAverage(calcAverageValue(listOfMeasures,
+										 		aggregatedMeasuresDto.getCountMeasures(),
+										 		aggregatedMeasuresDto.getAverage()) );
 		aggregatedMeasuredDao.updateAggregatedMeasures(aggregatedMeasuresDto);
 	}
 	
+	private AggregatedMeasuresDto getAggregatedMeasuresFromPersistency(RawMeasure rawMeasure, AggregationTypeEnum aggregationTypeEnum) throws Exception {
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(rawMeasure.getTime());
+	
+		AggregatedMeasuresDto aggregatedMeasuresDto = new AggregatedMeasuresDto();
+		aggregatedMeasuresDto.setAggregatedTypeId(aggregationTypeEnum.id());
+		aggregatedMeasuresDto.setAggregatedYear(cal.get(Calendar.YEAR));
+		aggregatedMeasuresDto.setAggregatedMonth(cal.get(Calendar.MONTH));
+		aggregatedMeasuresDto.setAggregatedDayOfMonth(cal.get(Calendar.DAY_OF_MONTH));
+		
+		return aggregatedMeasuredDao.getAggregatedMeasuresByInfo(aggregatedMeasuresDto);
+	}
+	
+	
+	public float calcAverageValue(List<RawMeasure> listOfMeasures, int oldMeasuresCount, float oldMeasuresAverage) {
+		//TBD
+		return 0.0f;
+	}
 	
 	@Override
 	public AggregatedMeasures getAggregatedMeasures(int deviceId, Date time, AggregationTypeEnum aggType) {

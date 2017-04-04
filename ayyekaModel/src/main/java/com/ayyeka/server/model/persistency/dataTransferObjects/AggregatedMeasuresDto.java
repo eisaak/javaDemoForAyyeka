@@ -1,6 +1,5 @@
 package com.ayyeka.server.model.persistency.dataTransferObjects;
 
-import java.util.Date;
 
 import com.ayyeka.server.model.api.AggregationTypeEnum;
 

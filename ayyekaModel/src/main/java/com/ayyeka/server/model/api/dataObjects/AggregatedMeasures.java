@@ -1,7 +1,5 @@
 package com.ayyeka.server.model.api.dataObjects;
 
-import java.util.Date;
-
 public class AggregatedMeasures 
 {
 	private Integer id;

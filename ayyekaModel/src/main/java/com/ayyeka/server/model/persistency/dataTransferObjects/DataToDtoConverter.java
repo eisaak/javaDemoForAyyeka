@@ -27,8 +27,10 @@ public class DataToDtoConverter {
 		AggregatedMeasuresDto result = new AggregatedMeasuresDto();
 		
 		result.setId(aggregatedMeasures.getId());
-		result.setTime(aggregatedMeasures.getTime());
 		result.setAggregatedTypeId(aggregatedMeasures.getAggregatedTypeId());
+		result.setAggregatedYear(aggregatedMeasures.getAggregatedYear());
+		result.setAggregatedMonth(aggregatedMeasures.getAggregatedMonth());
+		result.setAggregatedDayOfMonth(aggregatedMeasures.getAggregatedDayOfMonth());
 		result.setDeviceId(aggregatedMeasures.getDeviceId());
 		result.setCountMeasures(aggregatedMeasures.getCountMeasures());
 		result.setAverage(aggregatedMeasures.getAverage());

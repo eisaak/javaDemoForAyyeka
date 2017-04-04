@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.ayyeka.server.model.persistency.dataTransferObjects.RawMeasureDto;
 
-public interface RawMeasureDao 
-{
+public interface RawMeasureDao {
+	
 	void saveNewRawMeasuresAsBatch(List<RawMeasureDto> listOfRawMeasureDTOs) throws Exception;
 	
 	void saveNewRawMeasure(RawMeasureDto rawMeasureDto) throws Exception;

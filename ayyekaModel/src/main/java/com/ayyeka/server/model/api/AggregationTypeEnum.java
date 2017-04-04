@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum AggregationTypeEnum {
+		UNKNOWN("", 0),
 	   	YEAR("YEAR", 1),
 	    MONTH("MONTH", 2),
-	    UNKNOWN("", 99);
-
+	    DAY_OF_MONTH("MONTH", 3);
 		
 	    private String usedName;
 	    private int id;

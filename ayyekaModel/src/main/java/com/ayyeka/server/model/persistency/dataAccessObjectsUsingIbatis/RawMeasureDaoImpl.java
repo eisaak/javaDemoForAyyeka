@@ -40,7 +40,7 @@ public class RawMeasureDaoImpl implements RawMeasureDao
 		sqlmapClient.insert("rawMeasure.addRawMeasure", rawMeasureDto);
 	}
 
-	@Override
+	@Override   
 	public void saveNewRawMeasuresAsBatch(List<RawMeasureDto> listOfRawMeasureDTOs) throws Exception {
 
 		//sqlmapClient.startTransaction()
