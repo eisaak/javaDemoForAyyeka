@@ -8,12 +8,26 @@ USE ayyeka;
 
 
 
+DROP TABLE IF EXISTS raw_measures ;
+
+CREATE TABLE IF NOT EXISTS raw_measures (
+  measure_id INT(11) NOT NULL AUTO_INCREMENT,
+  measured_time DATE NOT NULL,
+  measured_value FLOAT NOT NULL,
+  device_id INT(11) NOT NULL,
+  PRIMARY KEY (measure_id));
+
+  
+  
+
 DROP TABLE IF EXISTS aggregated_measures;
 
+-- For better perfomance, this table will be pre-filled with 
+-- all possible aggregation rows for each device for the whole year.
+-- (average and count_measures will be zero).
 CREATE TABLE IF NOT EXISTS aggregated_measures (
   agg_id INT(11) NOT NULL,
   device_id VARCHAR(45) NULL DEFAULT NULL,
-  agg_type_id INT(11) NULL DEFAULT NULL,
   agg_year INT(4) NULL DEFAULT NULL,
   agg_month INT(2) NULL DEFAULT NULL,
   agg_day INT(2) NULL DEFAULT NULL,
@@ -65,12 +79,5 @@ CREATE TABLE IF NOT EXISTS dictionary_device_types (
 
   
   
-DROP TABLE IF EXISTS raw_measures ;
 
-CREATE TABLE IF NOT EXISTS raw_measures (
-  measure_id INT(11) NOT NULL AUTO_INCREMENT,
-  measured_time DATE NOT NULL,
-  measured_value FLOAT NOT NULL,
-  device_id INT(11) NOT NULL,
-  PRIMARY KEY (measure_id));
 
