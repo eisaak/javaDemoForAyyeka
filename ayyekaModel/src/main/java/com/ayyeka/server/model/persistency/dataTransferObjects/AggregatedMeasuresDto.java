@@ -9,38 +9,12 @@ public class AggregatedMeasuresDto
 	private Integer id;
 	private Integer deviceId;
 	private Integer aggregatedTypeId;
-	private Date time;
+	private Integer aggregatedYear;
+	private Integer aggregatedMonth;
+	private Integer aggregatedDayOfMonth;
 	private Integer countMeasures;
 	private Float average;
 	
-	//Calculated according to:  aggregatedTypeId and time
-	private Date calculatedStartTime;
-	private Date calculatedEndTime;
-
-	/**
-	 * Updates this.calculatedStartTime and this.calculatedEndTime.
-	 * Calculation is done according to:  aggregatedTypeId and time.
-	 * For example:  if  aggregatedTypeId is YEAR and time is 2017-03-24
-	 *               then calculatedStartTime=2017-01-01, calculatedEndTime=2017-12-31
-	 *                
-	 */
-	public void updaetDateRangeAccordingToAggType() {
-		
-		AggregationTypeEnum aggregationTypeEnum = AggregationTypeEnum.valueOf(aggregatedTypeId);
-		
-		//TBD !!!
-		switch(aggregationTypeEnum) {
-			case YEAR: calculatedStartTime = new Date();
-					   calculatedEndTime = new Date();	
-					   break;
-			case MONTH: calculatedStartTime = new Date();
-			   			calculatedEndTime = new Date();	
-			   			break;
-			case UNKNOWN: calculatedStartTime = new Date();
-			   			  calculatedEndTime = new Date();	
-			   			  break;
-		}
-	}
 	
 	public Integer getAggregatedTypeId() {
 		return aggregatedTypeId;
@@ -60,12 +34,31 @@ public class AggregatedMeasuresDto
 	public void setDeviceId(Integer deviceId) {
 		this.deviceId = deviceId;
 	}
-	public Date getTime() {
-		return time;
+
+	public Integer getAggregatedYear() {
+		return aggregatedYear;
 	}
-	public void setTime(Date time) {
-		this.time = time;
+
+	public void setAggregatedYear(Integer aggregatedYear) {
+		this.aggregatedYear = aggregatedYear;
 	}
+
+	public Integer getAggregatedMonth() {
+		return aggregatedMonth;
+	}
+
+	public void setAggregatedMonth(Integer aggregatedMonth) {
+		this.aggregatedMonth = aggregatedMonth;
+	}
+
+	public Integer getAggregatedDayOfMonth() {
+		return aggregatedDayOfMonth;
+	}
+
+	public void setAggregatedDayOfMonth(Integer aggregatedDayOfMonth) {
+		this.aggregatedDayOfMonth = aggregatedDayOfMonth;
+	}
+
 	public Integer getCountMeasures() {
 		return countMeasures;
 	}

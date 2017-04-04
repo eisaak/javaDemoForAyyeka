@@ -1,6 +1,7 @@
 package com.ayyeka.server.model.api;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -9,6 +10,7 @@ import com.ayyeka.server.model.api.dataObjects.AggregatedMeasures;
 import com.ayyeka.server.model.api.dataObjects.RawMeasure;
 import com.ayyeka.server.model.persistency.dataAccessInterfaces.AggregatedMeasuresDao;
 import com.ayyeka.server.model.persistency.dataAccessInterfaces.RawMeasureDao;
+import com.ayyeka.server.model.persistency.dataTransferObjects.AggregatedMeasuresDto;
 import com.ayyeka.server.model.persistency.dataTransferObjects.DataToDtoConverter;
 import com.ayyeka.server.model.persistency.dataTransferObjects.RawMeasureDto;
 
@@ -51,14 +53,25 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 	}
 
 	@Override
-	public void aggregateMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) {
-		//TBD:
+	public void aggregateMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception {
+
+		//TBD: This method needs to be completed
 		
-		//Calculate new average:  average = average + ((received value - average) / (old countValues + 1) )
-		//
-		//aggregatedMeasuresDao.updateAggregatedMeasures(aggregatedMeasuresDto);
+		RawMeasure firstMeasure = listOfMeasures.get(0);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(firstMeasure.getTime());
+		int aggYear = cal.get(Calendar.YEAR); 
+		int aggMonth = cal.get(Calendar.MONTH); 
+		int aggDayOfMonth = cal.get(Calendar.DAY_OF_MONTH); 
 		
+		AggregatedMeasuresDto aggregatedMeasuresDto = new AggregatedMeasuresDto();
+		aggregatedMeasuresDto.setAggregatedYear(aggYear);
+		aggregatedMeasuresDto.setAggregatedMonth(aggMonth);
+		aggregatedMeasuresDto.setAggregatedDayOfMonth(aggDayOfMonth);
+		aggregatedMeasuresDto.setAggregatedTypeId(1);
+		aggregatedMeasuredDao.updateAggregatedMeasures(aggregatedMeasuresDto);
 	}
+	
 	
 	@Override
 	public AggregatedMeasures getAggregatedMeasures(int deviceId, Date time, AggregationTypeEnum aggType) {

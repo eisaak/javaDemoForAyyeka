@@ -7,7 +7,9 @@ public class AggregatedMeasures
 	private Integer id;
 	private Integer deviceId;
 	private Integer aggregatedTypeId;
-	private Date time;
+	private Integer aggregatedYear;
+	private Integer aggregatedMonth;
+	private Integer aggregatedDayOfMonth;
 	private Integer countMeasures;
 	private Float average;	
 
@@ -29,11 +31,24 @@ public class AggregatedMeasures
 	public void setDeviceId(Integer deviceId) {
 		this.deviceId = deviceId;
 	}
-	public Date getTime() {
-		return time;
+
+	public Integer getAggregatedYear() {
+		return aggregatedYear;
 	}
-	public void setTime(Date time) {
-		this.time = time;
+	public void setAggregatedYear(Integer aggregatedYear) {
+		this.aggregatedYear = aggregatedYear;
+	}
+	public Integer getAggregatedMonth() {
+		return aggregatedMonth;
+	}
+	public void setAggregatedMonth(Integer aggregatedMonth) {
+		this.aggregatedMonth = aggregatedMonth;
+	}
+	public Integer getAggregatedDayOfMonth() {
+		return aggregatedDayOfMonth;
+	}
+	public void setAggregatedDayOfMonth(Integer aggregatedDayOfMonth) {
+		this.aggregatedDayOfMonth = aggregatedDayOfMonth;
 	}
 	public Integer getCountMeasures() {
 		return countMeasures;
