@@ -33,6 +33,7 @@ public class AggregatedMeasures
 	public Integer getAggregatedYear() {
 		return aggregatedYear;
 	}
+	
 	public void setAggregatedYear(Integer aggregatedYear) {
 		this.aggregatedYear = aggregatedYear;
 	}

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum AggregationTypeEnum {
-		UNKNOWN("", 0),
+		UNKNOWN ("", 0),
 	   	YEAR("YEAR", 1),
 	    MONTH("MONTH", 2),
 	    DAY_OF_MONTH("MONTH", 3);

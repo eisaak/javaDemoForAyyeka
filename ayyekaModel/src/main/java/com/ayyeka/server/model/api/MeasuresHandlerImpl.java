@@ -59,7 +59,8 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 		
 
 		AggregatedMeasuresDto aggregatedMeasuresDto = 
-					getAggregatedMeasuresFromPersistency(listOfMeasures.get(0), AggregationTypeEnum.DAY_OF_MONTH);
+					getAggregatedMeasuresFromPersistency(listOfMeasures.get(0), 
+														 AggregationTypeEnum.DAY_OF_MONTH);
 				
 		aggregatedMeasuresDto.setAverage(calcAverageValue(listOfMeasures,
 										 		aggregatedMeasuresDto.getCountMeasures(),
@@ -73,7 +74,6 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 		cal.setTime(rawMeasure.getTime());
 	
 		AggregatedMeasuresDto aggregatedMeasuresDto = new AggregatedMeasuresDto();
-		aggregatedMeasuresDto.setAggregatedTypeId(aggregationTypeEnum.id());
 		aggregatedMeasuresDto.setAggregatedYear(cal.get(Calendar.YEAR));
 		aggregatedMeasuresDto.setAggregatedMonth(cal.get(Calendar.MONTH));
 		aggregatedMeasuresDto.setAggregatedDayOfMonth(cal.get(Calendar.DAY_OF_MONTH));
