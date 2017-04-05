@@ -40,7 +40,6 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 		this.aggregatedMeasuredDao = aggregatedMeasuredDao;
 	}
 	
-	//According to SRP (Single Responsibility Principle), this method won't aggregate the data too
 	@Override
 	public void saveMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception {
 		
@@ -62,7 +61,6 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 		AggregatedMeasuresDto aggregatedMeasuresDto = 
 					getAggregatedMeasuresFromPersistency(listOfMeasures.get(0), AggregationTypeEnum.DAY_OF_MONTH);
 				
-		aggregatedMeasuresDto.setAggregatedTypeId(AggregationTypeEnum.DAY_OF_MONTH.id());
 		aggregatedMeasuresDto.setAverage(calcAverageValue(listOfMeasures,
 										 		aggregatedMeasuresDto.getCountMeasures(),
 										 		aggregatedMeasuresDto.getAverage()) );
@@ -84,9 +82,16 @@ public class MeasuresHandlerImpl implements MeasuresHandler {
 	}
 	
 	
-	public float calcAverageValue(List<RawMeasure> listOfMeasures, int oldMeasuresCount, float oldMeasuresAverage) {
-		//TBD
-		return 0.0f;
+	public float calcAverageValue(List<RawMeasure> listOfMeasures, 
+									int oldMeasuresCount, 
+									float oldMeasuresAverage) {
+		float newMeasuresSum = oldMeasuresAverage * oldMeasuresCount;
+		for ( RawMeasure rawMeasure : listOfMeasures ) {
+			newMeasuresSum += rawMeasure.getMeasuredValue();   
+		}
+		int newMeasuresCount = oldMeasuresCount + listOfMeasures.size();
+		
+		return newMeasuresSum/(float)newMeasuresCount; 
 	}
 	
 	@Override

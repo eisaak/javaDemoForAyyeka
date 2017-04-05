@@ -19,12 +19,8 @@ CREATE TABLE IF NOT EXISTS raw_measures (
 
   
   
-
 DROP TABLE IF EXISTS aggregated_measures;
 
--- For better perfomance, this table will be pre-filled with 
--- all possible aggregation rows for each device for the whole year.
--- (average and count_measures will be zero).
 CREATE TABLE IF NOT EXISTS aggregated_measures (
   agg_id INT(11) NOT NULL,
   device_id VARCHAR(45) NULL DEFAULT NULL,
@@ -66,7 +62,7 @@ CREATE TABLE IF NOT EXISTS dictionary_aggregation_types (
   PRIMARY KEY (agg_type_id));
 
 
-  
+ 
   
 DROP TABLE IF EXISTS dictionary_device_types ;
 

@@ -20,10 +20,6 @@ public interface MeasuresHandler {
 	
 	void saveMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception;
 
-	/**
-	 * This method assumes that all the possible aggregation rows in the database are
-	 * already inserted manually (with count and average fields containing zero). 
-	 */
 	void aggregateMeasuresIntoPersistency(List<RawMeasure> listOfMeasures) throws Exception;
 		
 	AggregatedMeasures getAggregatedMeasures(int deviceId, Date time, AggregationTypeEnum aggType ) throws Exception;

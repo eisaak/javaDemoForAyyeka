@@ -1,13 +1,9 @@
 package com.ayyeka.server.model.persistency.dataTransferObjects;
 
-
-import com.ayyeka.server.model.api.AggregationTypeEnum;
-
 public class AggregatedMeasuresDto 
 {
 	private Integer id;
 	private Integer deviceId;
-	private Integer aggregatedTypeId;
 	private Integer aggregatedYear;
 	private Integer aggregatedMonth;
 	private Integer aggregatedDayOfMonth;
@@ -15,12 +11,6 @@ public class AggregatedMeasuresDto
 	private Float average;
 	
 	
-	public Integer getAggregatedTypeId() {
-		return aggregatedTypeId;
-	}
-	public void setAggregatedTypeId(Integer aggregatedTypeId) {
-		this.aggregatedTypeId = aggregatedTypeId;
-	}
 	public Integer getId() {
 		return id;
 	}
