@@ -49,8 +49,7 @@ public class MeasuresHandlerTest
 			//the RawMeasureDao interface to contain the method setSqlMapClient()
     		RawMeasureDao rawMeasureDao = new RawMeasureDaoImpl(sqlmapClient); 
 
-    		ExecutorService executorService = Executors.newFixedThreadPool(10);
-	        MeasuresHandler measuresHandler = new MeasuresHandlerImpl(executorService);
+	        MeasuresHandler measuresHandler = new MeasuresHandlerImpl();
 	        measuresHandler.setRawMeasureDao(rawMeasureDao);   //dependency injection
 
 	        
